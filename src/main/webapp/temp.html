@@ -1,10 +1,97 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="dist/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/accordion.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/ad.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/breadcrumb.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/button.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/card.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/checkbox.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/comment.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/container.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/dimmer.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/divider.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/dropdown.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/embed.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/feed.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/flag.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/form.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/grid.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/header.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/icon.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/image.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/input.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/item.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/label.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/list.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/loader.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/menu.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/message.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/modal.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/nag.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/popup.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/progress.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/rail.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/rating.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/reset.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/reveal.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/search.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/segment.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/shape.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/sidebar.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/site.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/statistic.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/step.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/sticky.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/tab.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/table.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/transition.min.css">
+        <link rel="stylesheet" type="text/css" href="dist/components/video.min.css">
+        
+        <script src="jquery.min.js"></script>
+        <script src="dist/semantic.min.js"></script>
+        <script src="dist/components/accordion.min.js"></script>
+        <script src="dist/components/api.min.js"></script>
+        <script src="dist/components/checkbox.min.js"></script>
+        <script src="dist/components/colorize.min.js"></script>
+        <script src="dist/components/dimmer.min.js"></script>
+        <script src="dist/components/dropdown.min.js"></script>
+        <script src="dist/components/embed.min.js"></script>
+        <script src="dist/components/form.min.js"></script>
+        <script src="dist/components/modal.min.js"></script>
+        <script src="dist/components/nag.min.js"></script>
+        <script src="dist/components/popup.min.js"></script>
+        <script src="dist/components/progress.min.js"></script>
+        <script src="dist/components/rating.min.js"></script>
+        <script src="dist/components/search.min.js"></script>
+        <script src="dist/components/shape.min.js"></script>
+        <script src="dist/components/sidebar.min.js"></script>
+        <script src="dist/components/site.min.js"></script>
+        <script src="dist/components/state.min.js"></script>
+        <script src="dist/components/sticky.min.js"></script>
+        <script src="dist/components/tab.min.js"></script>
+        <script src="dist/components/transition.min.js"></script>
+        <script src="dist/components/video.min.js"></script>
+        <script src="dist/components/visibility.min.js"></script>
+        <script src="dist/components/visit.min.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="ui info message">
+            <i class="icon close"></i>
+            <div class="header">Apa yang akan anda lakukan?</div>
+            <p>Apa sajakah?</p>
+            <script>
+                $('.message .close').on('click',function(){$this.closest('.message').transition('fade');});
+            </script>
+        </div>
     </body>
 </html>
