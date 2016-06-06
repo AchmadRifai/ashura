@@ -7,6 +7,7 @@ package page.html;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -110,6 +112,15 @@ public class index extends HttpServlet {
         PrintWriter o=res.getWriter();
         entity.Perusahaan p=(entity.Perusahaan) req.getSession().getAttribute("per");
         page.modal.Dash.header(o,p);
+        try {
+            util.db d=new util.db(req.getRemoteAddr());
+            java.sql.PreparedStatement ps1=d.getPS("select kode from cabang where dari=?");
+            ps1.setString(1, p.getKode());
+            page.modal.Dash.table(o, getCabang(ps1.executeQuery(),req.getRemoteAddr()));
+            ps1.close();d.close();
+        } catch (SQLException ex) {
+            util.db.hindar(ex, req.getRemoteAddr());
+        }page.modal.Dash.footer(o);
     }
 
     private void loginAksi(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -125,6 +136,17 @@ public class index extends HttpServlet {
                 util.db.hindar(ex, req.getRemoteAddr());
             }
         }else page.modal.Login.pesan(o,"warning","Harus diisi semua!","WARNING");
+    }
+
+    private DefaultTableModel getCabang(ResultSet rs, String remote) throws SQLException {
+        DefaultTableModel m=new javax.swing.table.DefaultTableModel(new String[]{"NO","KODE","ALAMAT","JENIS","ZONA WAKTU","JUMLAH KARYAWAN"}, 0);
+        int x=1;
+        while(rs.next()){
+            entity.Cabang c=new entity.Cabang(rs.getString("kode"),remote);
+            m.addRow(new String[]{""+x,c.getKode(),c.getAlamat(),c.getJenis(),c.getZona(),""+c.getJum_kar()});
+            x++;
+        }rs.close();
+        return m;
     }
 
 }
