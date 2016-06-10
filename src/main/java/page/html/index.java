@@ -102,6 +102,8 @@ public class index extends HttpServlet {
         page.modal.Login.input(o,"sitemap","text","per","Kode Perusahaan");
         page.modal.Login.input(o, "lock", "password", "pass", "PASSWORD");
         o.print("<input type=\"submit\" name=\"ok\" value=\"LOGIN\" class=\"ui fluid large teal submit button\">");
+        java.io.File f=new java.io.File("");
+        o.print(f.getAbsolutePath());
         o.print("</div>");
         if(req.getParameter("ok")!=null)loginAksi(req,res);
         o.print("</form>");

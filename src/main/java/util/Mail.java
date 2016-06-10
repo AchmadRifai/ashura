@@ -15,7 +15,7 @@ import javax.mail.Transport;
  * @author ai
  */
 public class Mail {
-    public static void sendMailTo(String to) throws MessagingException{
+    public static void sendMailTo(String to,String pesan) throws MessagingException{
         java.util.Properties p=new java.util.Properties();
         p.put("mail.smtp.auth", "true");
         p.put("mail.smtp.starttls.enable", "true");
@@ -26,13 +26,30 @@ public class Mail {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication("achmad.rifai.jowo.asli@gmail.com", "@RAgon085");
             } 
-        });
-        javax.mail.Message m=new javax.mail.internet.MimeMessage(s);
+        });javax.mail.Message m=new javax.mail.internet.MimeMessage(s);
         m.setFrom(new javax.mail.internet.InternetAddress("achmad.rifai.jowo.asli@gmail.com"));
         m.setRecipients(Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(to));
-        m.setSubject("Verivy Your Account");
-        m.setText("Halo");
+        m.setSubject("Verify Your Account");
+        m.setText(pesan);
         Transport.send(m);
-        System.out.println("Sended to "+to);
+    }
+
+    public static void sendMailToHTML(String to, String pesan) throws MessagingException{
+        java.util.Properties p=new java.util.Properties();
+        p.put("mail.smtp.auth", "true");
+        p.put("mail.smtp.starttls.enable", "true");
+        p.put("mail.smtp.host", "smtp.gmail.com");
+        p.put("mail.smtp.port", "587");
+        javax.mail.Session s=javax.mail.Session.getDefaultInstance(p, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("achmad.rifai.jowo.asli@gmail.com", "@RAgon085");
+            } 
+        });javax.mail.Message m=new javax.mail.internet.MimeMessage(s);
+        m.setFrom(new javax.mail.internet.InternetAddress("achmad.rifai.jowo.asli@gmail.com"));
+        m.setRecipients(Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(to));
+        m.setSubject("Verify Your Account");
+        m.setContent(pesan, "text/html");
+        Transport.send(m);
     }
 }
