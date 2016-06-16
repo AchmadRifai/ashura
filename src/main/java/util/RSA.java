@@ -5,19 +5,18 @@
  */
 package util;
 
-import java.time.ZoneId;
+import java.io.File;
 
 /**
  *
  * @author ai
  */
-public class jajal {
+public class RSA {
+    private File pri,pub;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        for(String s:ZoneId.getAvailableZoneIds())System.out.println(s);
+    public RSA(File pri, File pub) {
+        this.pri = pri;
+        this.pub = pub;
+        
     }
-    
 }
