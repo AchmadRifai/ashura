@@ -12,29 +12,31 @@ import java.sql.SQLException;
  * @author ai
  */
 public class Cabang {
-    private String kode,dari,alamat,jenis,zona;
-    private int jum_kar;
+    private String kode,alamat,per,zona;
+    private boolean blocked,deleted;
 
-    public Cabang(String kode,String remote) throws SQLException {
+    public Cabang(String kode,util.db d) throws SQLException {
         this.kode = kode;
-        util.db d=new util.db(remote);
-        java.sql.PreparedStatement ps=d.getPS("select*from cabang where kode=?");ps.setString(1, kode);
-        java.sql.ResultSet rs=ps.executeQuery();if(rs.next()){
-            dari=rs.getString("dari");
+        java.sql.PreparedStatement ps=d.getPS("select*from cabang where kode=?");
+        ps.setString(1, kode);
+        java.sql.ResultSet rs=ps.executeQuery();
+        if(rs.next()){
             alamat=rs.getString("alamat");
-            jenis=rs.getString("jenis");
+            per=rs.getString("per");
             zona=rs.getString("zona");
-            jum_kar=rs.getInt("jum_kar");
-        }rs.close();ps.close();d.close();
+            blocked=rs.getBoolean("blocked");
+            deleted=rs.getBoolean("deleted");
+        }rs.close();
+        ps.close();
     }
 
-    public Cabang(String kode, String dari, String alamat, String jenis, String zona, int jum_kar) {
+    public Cabang(String kode, String alamat, String per, String zona) {
         this.kode = kode;
-        this.dari = dari;
         this.alamat = alamat;
-        this.jenis = jenis;
+        this.per = per;
         this.zona = zona;
-        this.jum_kar = jum_kar;
+        blocked=false;
+        deleted=false;
     }
 
     public String getKode() {
@@ -45,14 +47,6 @@ public class Cabang {
         this.kode = kode;
     }
 
-    public String getDari() {
-        return dari;
-    }
-
-    public void setDari(String dari) {
-        this.dari = dari;
-    }
-
     public String getAlamat() {
         return alamat;
     }
@@ -61,12 +55,12 @@ public class Cabang {
         this.alamat = alamat;
     }
 
-    public String getJenis() {
-        return jenis;
+    public String getPer() {
+        return per;
     }
 
-    public void setJenis(String jenis) {
-        this.jenis = jenis;
+    public void setPer(String per) {
+        this.per = per;
     }
 
     public String getZona() {
@@ -77,11 +71,19 @@ public class Cabang {
         this.zona = zona;
     }
 
-    public int getJum_kar() {
-        return jum_kar;
+    public boolean isBlocked() {
+        return blocked;
     }
 
-    public void setJum_kar(int jum_kar) {
-        this.jum_kar = jum_kar;
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

@@ -6,42 +6,42 @@
 package entity;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 /**
  *
  * @author ai
  */
 public class Tugas {
-    private String kode,untuk,tipe,ket;
-    private boolean avai,permanent;
-    private Timestamp jarak,mulai;
+    private String kode,ket,tipe,untuk;
+    private java.sql.Timestamp mulai,durasi;
+    private boolean deleted,fixed;
 
-    public Tugas(String kode, String untuk, String tipe, String ket, boolean avai, boolean permanent, Timestamp jarak, Timestamp mulai) {
+    public Tugas(String kode,util.db d) throws SQLException {
         this.kode = kode;
-        this.untuk = untuk;
-        this.tipe = tipe;
-        this.ket = ket;
-        this.avai = avai;
-        this.permanent = permanent;
-        this.jarak = jarak;
-        this.mulai = mulai;
+        java.sql.PreparedStatement ps=d.getPS("select*from tugas where kode=?");
+        ps.setString(1, kode);
+        java.sql.ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            ket=rs.getString("ket");
+            tipe=rs.getString("tipe");
+            untuk=rs.getString("untuk");
+            mulai=rs.getTimestamp("mulai");
+            durasi=rs.getTimestamp("durasi");
+            deleted=rs.getBoolean("deleted");
+            fixed=rs.getBoolean("fixed");
+        }rs.close();
+        ps.close();
     }
 
-    public Tugas(String kode,String remote) throws SQLException {
+    public Tugas(String kode, String ket, String tipe, String untuk) {
         this.kode = kode;
-        util.db d=new util.db(remote);
-        java.sql.ResultSet rs=d.keluar("select*from tugas where kode='"+kode+"'");
-        if(rs.next()){
-            untuk=rs.getString("untuk");
-            tipe=rs.getString("tipe");
-            ket=rs.getString("ket");
-            avai=rs.getBoolean("avai");
-            permanent=rs.getBoolean("permanent");
-            mulai=rs.getTimestamp("mulai");
-            jarak=rs.getTimestamp("jarak");
-        }rs.close();
-        d.close();
+        this.ket = ket;
+        this.tipe = tipe;
+        this.untuk = untuk;
+        mulai=null;
+        durasi=null;
+        deleted=false;
+        fixed=false;
     }
 
     public String getKode() {
@@ -52,12 +52,12 @@ public class Tugas {
         this.kode = kode;
     }
 
-    public String getUntuk() {
-        return untuk;
+    public String getKet() {
+        return ket;
     }
 
-    public void setUntuk(String untuk) {
-        this.untuk = untuk;
+    public void setKet(String ket) {
+        this.ket = ket;
     }
 
     public String getTipe() {
@@ -68,43 +68,43 @@ public class Tugas {
         this.tipe = tipe;
     }
 
-    public String getKet() {
-        return ket;
+    public String getUntuk() {
+        return untuk;
     }
 
-    public void setKet(String ket) {
-        this.ket = ket;
+    public void setUntuk(String untuk) {
+        this.untuk = untuk;
     }
 
-    public boolean isAvai() {
-        return avai;
-    }
-
-    public void setAvai(boolean avai) {
-        this.avai = avai;
-    }
-
-    public boolean isPermanent() {
-        return permanent;
-    }
-
-    public void setPermanent(boolean permanent) {
-        this.permanent = permanent;
-    }
-
-    public Timestamp getJarak() {
-        return jarak;
-    }
-
-    public void setJarak(Timestamp jarak) {
-        this.jarak = jarak;
-    }
-
-    public Timestamp getMulai() {
+    public java.sql.Timestamp getMulai() {
         return mulai;
     }
 
-    public void setMulai(Timestamp mulai) {
+    public void setMulai(java.sql.Timestamp mulai) {
         this.mulai = mulai;
+    }
+
+    public java.sql.Timestamp getDurasi() {
+        return durasi;
+    }
+
+    public void setDurasi(java.sql.Timestamp durasi) {
+        this.durasi = durasi;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
     }
 }

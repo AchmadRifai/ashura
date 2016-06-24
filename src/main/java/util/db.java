@@ -6,7 +6,6 @@
 package util;
 
 import java.io.FileNotFoundException;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
@@ -31,16 +30,20 @@ public class db {
 
     private java.sql.Connection c;
     private java.sql.Statement s;
+    private String host,name,user,pass;
+    private int port;
 
-    public db(String remote) throws SQLException{
+    public db(String remote,String h,String n,String u,String p,int po) throws SQLException{
+        host=h;
+        name=n;
+        user=u;
+        pass=p;
+        port=po;
         try {
             org.postgresql.Driver.class.newInstance();
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException | IllegalAccessException ex) {
             db.hindar(ex,remote);
-        } catch (IllegalAccessException ex) {
-            db.hindar(ex, remote);
-        }c=DriverManager.getConnection("jdbc:postgresql://localhost:5432/kala", "postgres", "mayu");
-        s=c.createStatement();
+        }start();
     }
 
     public void close() throws SQLException{
@@ -58,5 +61,10 @@ public class db {
 
     public java.sql.ResultSet keluar(String sql) throws SQLException{
         return s.executeQuery(sql);
+    }
+
+    private void start() throws SQLException {
+        c=java.sql.DriverManager.getConnection("jdbc:postgresql://"+host+":"+port+"/"+name, user, pass);
+        s=c.createStatement();
     }
 }

@@ -7,34 +7,30 @@ package entity;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.ZoneId;
 
 /**
  *
  * @author ai
  */
-public class Jejak {
-    private String peg,ket,ip;
-    private java.sql.Time jam;
+public class Absen {
+    private String akun,ket;
     private java.sql.Date tgl;
 
-    public Jejak(String peg, String ket, String ip,util.db d) throws SQLException {
-        this.peg = peg;
+    public Absen(String akun, String ket,util.db d) throws SQLException {
+        this.akun = akun;
         this.ket = ket;
-        this.ip = ip;
-        Karyawan k=new Karyawan(peg,d);
+        Karyawan k=new Karyawan(akun,d);
         Cabang c=new Cabang(k.getDari(),d);
-        jam=java.sql.Time.valueOf(LocalTime.now(ZoneId.of(c.getZona())));
         tgl=java.sql.Date.valueOf(LocalDate.now(ZoneId.of(c.getZona())));
     }
 
-    public String getPeg() {
-        return peg;
+    public String getAkun() {
+        return akun;
     }
 
-    public void setPeg(String peg) {
-        this.peg = peg;
+    public void setAkun(String akun) {
+        this.akun = akun;
     }
 
     public String getKet() {
@@ -43,22 +39,6 @@ public class Jejak {
 
     public void setKet(String ket) {
         this.ket = ket;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public java.sql.Time getJam() {
-        return jam;
-    }
-
-    public void setJam(java.sql.Time jam) {
-        this.jam = jam;
     }
 
     public java.sql.Date getTgl() {
